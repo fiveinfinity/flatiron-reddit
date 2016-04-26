@@ -1,0 +1,9 @@
+<%= @user.email %>'s Profile
+<%= link_to 'New Post', new_post_path %><br>
+<%= link_to 'Update Comments', edit_comment_path(@user.id) %>
+
+<%= @user.posts.map do |post| %>
+  <p><%= link_to post.title, post_path(post) %></p>
+  <p><%= link_to post.category.title, category_path(post.category_id) %></p>
+  <p><%= post.content %></p><br>
+<% end %>

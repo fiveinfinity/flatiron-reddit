@@ -1,0 +1,23 @@
+<% if user_signed_in? && current_user.id == @post.author_id %>
+  edit post here<%= link_to 'EDIT POST', edit_post_path(@post) %>
+  delete post here<%= link_to 'DELETE POST', post_path(@post), method: 'delete' %>
+<% end %>
+
+  <p><%= link_to @post.title, post_path(@post) %></p><br>
+  <p><%= link_to author_of_post_email(@post), user_profile_path(author_of_post_id(@post)) %></p><br>
+  <p><%= link_to @post.category.title, category_path(@post.category_id) %></p><br>
+  <p><%= @post.content %></p><br>
+<% @post.comments.map do |comment| %>
+  <p><%= comment.content %></p>
+<% end %>
+
+
+<% if current_user %>
+  <%= form_for @comment, url: create_comments_path do |f| %>
+    <%= f.label :content %>
+    <%= f.text_field :content%>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.submit %>
+  <% end %>
+<% end %>

@@ -1,0 +1,11 @@
+<%= @comments.map do |comment| %>
+  <%=comment.content%>
+  <%= form_for comment, url: edit_comment_path do |f| %>
+    <%= f.label :content %>
+    <%= f.text_field :content%>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :post_id, value: comment.post.id %>
+    <%= f.submit %>
+  <% end %>
+
+<% end %>
