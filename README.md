@@ -24,3 +24,11 @@ DONE 9. Profile Page: option to create new post, see all comments, populate user
 DONE 10. comments
 
 DONE 11. user comments not working properly
+
+12. Messages
+
+DONE 13. Updating comment creates a new comment.
+
+DONE 14. Delete a comment.
+
+DONE 15. Edit/Delete a post.

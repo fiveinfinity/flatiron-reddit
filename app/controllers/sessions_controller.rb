@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
   def profile
     if current_user
       @user = current_user
+      @posts = Post.where(author_id: @user.id)
     else
       redirect_to root_path
     end

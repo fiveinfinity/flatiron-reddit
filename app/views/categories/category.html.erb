@@ -1,7 +1,7 @@
-<%= @category.title %> Category
-<%= @category.posts.map do |post| %>
-  <p><%= link_to post.title, post_path(post) %></p>
-  <p><%= link_to author_of_post_email(post), user_profile_path(author_of_post_id(post)) %></p>
-  <p><%= post.content %></p><br>
-  <p><%= link_to post.comments.count, comment_path(post.id) %> Comments</p><br>
+<%= @category.title %> Category<br><br>
+<% @category.posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %><br>
+  <%= author_of_post_email(post) %><br>
+  <%= post.content %><br><br>
+  <%= post.comments.count %> Comments<br><br>
 <% end %>

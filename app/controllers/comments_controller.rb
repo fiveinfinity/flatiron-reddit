@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:update]
+  before_action :set_comment, only: [:destroy]
 
   def comments
     @comments = Comment.where(user_id: params[:id])
@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.create!(comment_params)
+    flash[:alert] = "New comment created successfully."
     redirect_to root_path
   end
 
@@ -16,12 +17,17 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment.update(comment_params)
+    @comment = Comment.find(params[:comment][:id])
+    @comment.update(content: params[:comment][:content])
+    flash[:alert] = "Comment updated successfully."
     redirect_to post_path(@comment.post_id)
   end
 
   def destroy
-
+    @comment.destroy
+    @comment.save
+    flash[:alert] = "Comment destroyed successfully."
+    redirect_to user_profile_path
   end
 
   private

@@ -17,7 +17,6 @@ end
   Post.create!(
     title: Faker::Hipster.words(1),
     content: Faker::Hipster.sentences,
-    category_id: Faker::Number.between(1, 10),
     author_id: Faker::Number.between(1, 10)
   )
 end
@@ -33,5 +32,12 @@ end
 10.times do
   Category.create!(
     title: Faker::Hacker.noun
+  )
+end
+
+10.times do
+  PostCategory.create!(
+  post_id: Faker::Number.between(1, 10),
+  category_id: Faker::Number.between(1, 10)
   )
 end

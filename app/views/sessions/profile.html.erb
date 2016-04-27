@@ -1,9 +1,13 @@
-<%= @user.email %>'s Profile
+<%= @user.email %>'s Profile<br>
 <%= link_to 'New Post', new_post_path %><br>
-<%= link_to 'Update Comments', edit_comment_path(@user.id) %>
+<%= link_to 'Update/Delete Comments', edit_comment_path(@user.id) %><br><br>
 
-<%= @user.posts.map do |post| %>
-  <p><%= link_to post.title, post_path(post) %></p>
-  <p><%= link_to post.category.title, category_path(post.category_id) %></p>
-  <p><%= post.content %></p><br>
+<% @posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %><br>
+  <%= link_to post.category.title, category_path(post.category_id) %><br>
+  <%= post.content %><br>
+  <% post.comments.each do |comment| %>
+    <%= comment.content %> |
+    <%= comment.user.email %>
+  <% end %><br><br>
 <% end %>

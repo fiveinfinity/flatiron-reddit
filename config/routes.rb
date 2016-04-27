@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :posts
   devise_for :users
 
-  delete 'comments/destroy', to: 'comments#destroy', as: 'destroy_comments'
+  delete 'comments/destroy/:id', to: 'comments#destroy', as: 'destroy_comment'
   post 'comments/create', to: 'comments#create', as: 'create_comments'
-  get 'users/:id/comments', to: 'comments#comments', as: 'comments'
+  get 'users/:id/comments', to: 'comments#comments'
   get 'users/:id/comments/edit', to: 'comments#edit', as: 'edit_comment'
   patch 'users/:id/comments/edit', to: 'comments#update'
   get 'category/:id', to: 'categories#category', as: 'category'

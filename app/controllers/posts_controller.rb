@@ -3,7 +3,6 @@ class PostsController < ApplicationController
   before_action :set_user, only: [:new, :edit]
 
   def index
-    @categories = Category.all
     @posts = Post.all
   end
 
@@ -14,6 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create!(post_params)
+    flash[:alert] = "New post created successfully."
     redirect_to root_path
   end
 
@@ -26,21 +26,20 @@ class PostsController < ApplicationController
 
   def update
     @post.update(post_params)
+    flash[:alert] = "Post edited successfully."
     redirect_to root_path
   end
 
   def destroy
     @post.destroy
-    if current_user
-      redirect_to user_profile_path
-    else
-      redirect_to root_path
-    end
+    @post.save
+    flash[:alert] = "Post destroyed successfully."
+    redirect_to user_profile_path
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :category_id, :author_id)
+    params.require(:post).permit(:title, :content, :author_id, category_ids:[], categories_attributes: [:title])
   end
 
   def set_post
