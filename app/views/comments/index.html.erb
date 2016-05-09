@@ -1,0 +1,7 @@
+
+<%= @post.content %><br>
+
+<% @comments.each do |comment| %>
+  <%= link_to 'Edit Comment', edit_user_comment_path(user_id: params[:user_id], id: comment[:id]) %>
+  <%= comment.content %><br>
+<% end %>

@@ -3,18 +3,20 @@ Rails.application.routes.draw do
   root 'posts#index'
   resources :posts
   devise_for :users
+  resources :users, only: [:show] do
+    resources :comments, only: [:edit, :update, :index]
+  end
 
+  #######ROUTES FOR SORTING AND SEARCH FEATURES############
   post 'sort_newest', to: 'posts#sort_newest'
   post 'sort_oldest', to: 'posts#sort_oldest'
   post 'sort_most', to: 'comments#sort_most'
   post 'sort_least', to: 'comments#sort_least'
   post 'search', to: 'posts#search'
-  
+
   delete 'comments/destroy/:id', to: 'comments#destroy', as: 'destroy_comment'
   post 'comments/create', to: 'comments#create', as: 'create_comments'
-  get 'users/:id/comments', to: 'comments#comments'
-  get 'users/:id/comments/edit', to: 'comments#edit', as: 'edit_comment'
-  patch 'users/:id/comments/edit', to: 'comments#update'
+
   get 'category/:id', to: 'categories#category', as: 'category'
   get '/users/:id/profile', to: 'sessions#profile', as: 'user_profile'
   get '/auth/facebook/callback' => 'sessions#create'

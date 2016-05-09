@@ -1,6 +1,6 @@
 <%= @user.email %>'s Profile<br>
 <%= link_to 'New Post', new_post_path %><br>
-<%= link_to 'Update/Delete Comments', edit_comment_path(@user.id) %><br><br>
+<%= link_to 'Update/Delete Comments', user_comments_path(@user.id) %><br><br>
 
 <% @posts.each do |post| %>
   TITLE: <%= link_to post.title, post_path(post) %><br>

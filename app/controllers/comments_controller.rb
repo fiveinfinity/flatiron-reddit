@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
 
-  def comments
-    @comments = Comment.where(user_id: params[:id])
-    @post = Post.find(author_id: params[:id])
+  def index
+    @comments = Comment.where(user_id: params[:user_id])
+    @post = Post.find_by(author_id: params[:id])
   end
 
   def create
