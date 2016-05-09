@@ -11,6 +11,11 @@
   <%= submit_tag 'Sort by least comments' %>
 <% end %>
 
+<%= form_tag 'search', method: 'post' do %>
+  <%= text_field_tag 'search' %>
+  <%= submit_tag 'Search Posts' %>
+<% end %>
+
 
 
 <% @posts.each do |post| %>

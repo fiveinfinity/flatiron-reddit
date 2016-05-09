@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'sort_oldest', to: 'posts#sort_oldest'
   post 'sort_most', to: 'comments#sort_most'
   post 'sort_least', to: 'comments#sort_least'
+  post 'search', to: 'posts#search'
   
   delete 'comments/destroy/:id', to: 'comments#destroy', as: 'destroy_comment'
   post 'comments/create', to: 'comments#create', as: 'create_comments'

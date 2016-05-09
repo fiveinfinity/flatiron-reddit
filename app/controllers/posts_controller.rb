@@ -49,6 +49,11 @@ class PostsController < ApplicationController
     render 'index'
   end
 
+  def search
+    @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
+    render "index"
+  end
+
   private
   def post_params
     params.require(:post).permit(:title, :content, :author_id, :category_ids, categories_attributes: [:title])
