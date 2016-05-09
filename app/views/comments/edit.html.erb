@@ -7,5 +7,5 @@
     <%= f.hidden_field :id, value: comment.id %>
     <%= f.submit %>
   <% end %>
-    <%= button_to 'Delete Comment', destroy_comment_path(comment), method: 'delete'%>
+    <%= button_to 'Delete Comment', user_comment_path(user_id: params[:user_id]), method: 'delete'%>
 <% end %>

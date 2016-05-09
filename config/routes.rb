@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :posts
   devise_for :users
   resources :users, only: [:show] do
-    resources :comments, only: [:edit, :update, :index]
+    resources :comments, only: [:edit, :update, :index, :create, :destroy]
   end
 
   #######ROUTES FOR SORTING AND SEARCH FEATURES############
@@ -13,9 +13,6 @@ Rails.application.routes.draw do
   post 'sort_most', to: 'comments#sort_most'
   post 'sort_least', to: 'comments#sort_least'
   post 'search', to: 'posts#search'
-
-  delete 'comments/destroy/:id', to: 'comments#destroy', as: 'destroy_comment'
-  post 'comments/create', to: 'comments#create', as: 'create_comments'
 
   get 'category/:id', to: 'categories#category', as: 'category'
   get '/users/:id/profile', to: 'sessions#profile', as: 'user_profile'
