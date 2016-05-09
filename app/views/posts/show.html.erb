@@ -6,7 +6,9 @@
   TITLE: <%= link_to @post.title, post_path(@post) %><br>
   AUTHOR: <%= author_of_post_email(@post) %><br>
             <% @post.categories.each do |category| %>
-    CATEGORY: <%= link_to category.title, category_path(category) %><br>
+              <% if category.title != "" %>
+                CATEGORY: <%= link_to category.title, category_path(category) %><br>
+              <% end %>
             <% end %>
   CONTENT: <%= @post.content %><br>
 COMMENTS: <% @post.comments.map do |comment| %>

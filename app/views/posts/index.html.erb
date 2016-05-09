@@ -1,15 +1,35 @@
+<%= form_tag 'sort_newest', method: 'post' do %>
+  <%= submit_tag 'Sort posts by newest' %>
+<% end %>
+<%= form_tag 'sort_oldest', method: 'post' do %>
+  <%= submit_tag 'Sort posts by oldest' %>
+<% end %>
+<%= form_tag 'sort_most', method: 'post' do %>
+  <%= submit_tag 'Sort by most comments' %>
+<% end %>
+<%= form_tag 'sort_least', method: 'post' do %>
+  <%= submit_tag 'Sort by least comments' %>
+<% end %>
+
+
+
 <% @posts.each do |post| %>
   <% post.categories.each do |category| %>
     <%= link_to category.title, category_path(category.id) %>
   <% end %>
 <% end %><br><br>
 
+
+
 <% @posts.each do |post| %>
   <%= link_to post.title, post_path(post) %><br>
   <%= author_of_post_email(post) %><br>
   <% post.categories.each do |category| %>
-    <%= link_to category.title, category_path(category) %><br>
+    <% if category.title != "" %>
+      <%= link_to category.title, category_path(category) %><br>
+    <% end %>
   <% end %>
   <%= post.content %><br>
   <%= post.comments.count %> Comments<br><br>
+  <%= post.created_at %>
 <% end %>

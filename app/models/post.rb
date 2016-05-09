@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   def categories_attributes=(cat_attr)
-    if cat_attr[0] != ''
+    if cat_attr.values != ''
       cat_attr.values.each do |attrib|
         category = Category.find_or_create_by(attrib)
           categories << category

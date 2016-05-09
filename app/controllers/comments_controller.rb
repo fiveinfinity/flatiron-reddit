@@ -30,6 +30,16 @@ class CommentsController < ApplicationController
     redirect_to user_profile_path
   end
 
+  def sort_most
+    @posts = Post.all.sort {|a,b| b.comments.count <=> a.comments.count}
+    render 'posts/index'
+  end
+
+  def sort_least
+    @posts = Post.all.sort {|a,b| a.comments.count <=> b.comments.count}
+    render 'posts/index'
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:content, :user_id, :post_id)

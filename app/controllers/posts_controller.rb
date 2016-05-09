@@ -31,15 +31,27 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    @post.save
-    flash[:alert] = "Post destroyed successfully."
+    @post.destroy.save
+    @post.comments.each do |comment|
+      comment.destroy.save
+    end
+    flash[:alert] = "Post & Comments destroyed successfully."
     redirect_to user_profile_path
+  end
+
+  def sort_newest
+    @posts = Post.all.order('created_at DESC')
+    render 'index'
+  end
+
+  def sort_oldest
+    @posts = Post.all.order('created_at ASC')
+    render 'index'
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :author_id, category_ids:[], categories_attributes: [:title])
+    params.require(:post).permit(:title, :content, :author_id, :category_ids, categories_attributes: [:title])
   end
 
   def set_post
