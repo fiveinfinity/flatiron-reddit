@@ -1,13 +1,20 @@
-<nav class="">
-    <% if user_signed_in? %>
-        <p>Signed in as <%= link_to current_user.email, user_profile_path(current_user) %></p>
-        <strong><%= link_to "SIGN OUT", destroy_user_session_path, method: 'delete' %></strong><br>
-        <strong><%= link_to 'HOME', root_path %></strong>
-    <% else %>
-        <strong><%= link_to "SIGN UP", new_user_registration_path %></strong><br>
-        <strong><%= link_to "SIGN IN", new_user_session_path %></strong><br>
-        <strong><%= link_to("SIGN IN WITH FACEBOOK", "/auth/facebook") %></strong><br>
-        <strong><%= link_to 'HOME', root_path %></strong>
-    <% end %>
-        
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Flatiron Reddit</a>
+    </div>
+
+    <ul class='nav navbar-nav'>
+      <% if user_signed_in? %>
+        <li><%= link_to current_user.email, user_profile_path(current_user) %></li>
+        <li><%= link_to 'HOME', root_path %></li>
+        <li><%= link_to "SIGN OUT", destroy_user_session_path, method: 'delete' %></li>
+      <% else %>
+          <li><%= link_to 'HOME', root_path %></li>
+          <li><%= link_to "SIGN UP", new_user_registration_path %></li>
+          <li><%= link_to "SIGN IN", new_user_session_path %></li>
+          <li><%= link_to("SIGN IN WITH FACEBOOK", "/auth/facebook") %></li>
+      <% end %>
+    </ul>
+  </div>
 </nav>

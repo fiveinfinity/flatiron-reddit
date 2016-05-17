@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap-sass'
 gem 'pry'
 gem 'faker'
 gem 'dotenv-rails'

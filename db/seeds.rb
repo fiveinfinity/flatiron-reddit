@@ -15,8 +15,8 @@ end
 
 10.times do
   Post.create!(
-    title: Faker::Hipster.words(1),
-    content: Faker::Hipster.sentences,
+    title: Faker::Hipster.words(1).join(". "),
+    content: Faker::Hipster.sentences.join(". "),
     author_id: Faker::Number.between(1, 10)
   )
 end
