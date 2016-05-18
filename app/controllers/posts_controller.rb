@@ -4,8 +4,13 @@ class PostsController < ApplicationController
   before_action :set_user, only: [:new, :edit]
 
   def index
-    @posts = Post.all
-    @categories = unique_category
+    # if params[:search]
+    #   @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
+    #   @categories = unique_category
+    # else
+      @posts = Post.all
+      @categories = unique_category
+
   end
 
   def new
@@ -56,7 +61,7 @@ class PostsController < ApplicationController
   def search
     @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
     @categories = unique_category
-    render 'index'
+    render :index
   end
 
   private

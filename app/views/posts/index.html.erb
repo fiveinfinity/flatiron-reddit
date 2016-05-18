@@ -16,10 +16,12 @@
   <%= form_tag 'sort_least', method: 'post' do %>
     <%= submit_tag 'Least Comments', class: 'btn btn-default navbar-btn btn-xs' %>
   <% end %>
-  <%= form_tag controller: "posts", action: "search", method: "POST" do %>
-    <%= text_field_tag 'search' %>
+  <%= form_tag search_path, method: "post" do %>
+    <%= text_field_tag "search" %>
   <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm' %>
 <% end %>
+
+
 
 <% @posts.each do |post| %>
   <div class='well'>

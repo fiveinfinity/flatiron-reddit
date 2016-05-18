@@ -1,27 +1,25 @@
 <nav class="navbar navbar-default navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Flatiron Reddit</a>
+      <a class="navbar-brand" href="/posts">Flatiron Reddit</a>
     </div>
 
     <ul class='nav navbar-nav navbar-inverse'>
       <% if user_signed_in? %>
         <li><%= link_to current_user.email, user_profile_path(current_user) %></li>
-        <li><%= link_to 'HOME', root_path %></li>
         <li><%= link_to "SIGN OUT", destroy_user_session_path, method: 'delete' %></li>
       <% else %>
-          <li><%= link_to 'HOME', root_path %></li>
           <li><%= link_to "SIGN UP", new_user_registration_path %></li>
           <li><%= link_to "SIGN IN", new_user_session_path %></li>
-          <li><%= link_to("SIGN IN WITH FACEBOOK", "/auth/facebook") %></li>
+          <li><%= link_to "SIGN IN WITH FACEBOOK", "/auth/facebook" %></li>
       <% end %>
     </ul>
     <form class="navbar-form pull-right">
       <div class="form-group">
-        <%= form_tag controller: "posts", action: "search", method: "POST" do %>
-          <%= text_field_tag 'search' %>
+        <%= form_tag search_path, method: "post" do %>
+          <%= text_field_tag "search" %>
       </div>
-        <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm' %>
+        <%= submit_tag "INOP", class: 'btn btn-primary btn-sm' %>
       <% end %>
     </form>
   </div>
