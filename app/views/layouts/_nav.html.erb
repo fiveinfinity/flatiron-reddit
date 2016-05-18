@@ -14,13 +14,14 @@
           <li><%= link_to "SIGN IN WITH FACEBOOK", "/auth/facebook" %></li>
       <% end %>
     </ul>
-    <form class="navbar-form pull-right">
+
+    <div class="navbar-form pull-right">
       <div class="form-group">
         <%= form_tag search_path, method: "post" do %>
           <%= text_field_tag "search" %>
+        <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm' %>
+        <% end %>
       </div>
-        <%= submit_tag "INOP", class: 'btn btn-primary btn-sm' %>
-      <% end %>
-    </form>
+    </div>
   </div>
 </nav>

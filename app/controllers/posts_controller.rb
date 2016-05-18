@@ -58,11 +58,6 @@ class PostsController < ApplicationController
     render 'index'
   end
 
-  def search
-    @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
-    @categories = unique_category
-    render :index
-  end
 
   private
   def post_params
