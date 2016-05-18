@@ -4,22 +4,6 @@
   <% end %><br><br>
 </ul>
 
-  <%= form_tag 'sort_newest', method: 'post' do %>
-    <%= submit_tag 'Newest Posts', class: 'btn btn-default navbar-btn btn-xs' %>
-  <% end %>
-  <%= form_tag 'sort_oldest', method: 'post' do %>
-    <%= submit_tag 'Oldest Posts', class: 'btn btn-default navbar-btn btn-xs' %>
-  <% end %>
-  <%= form_tag 'sort_most', method: 'post' do %>
-    <%= submit_tag 'Most Comments', class: 'btn btn-default navbar-btn btn-xs' %>
-  <% end %>
-  <%= form_tag 'sort_least', method: 'post' do %>
-    <%= submit_tag 'Least Comments', class: 'btn btn-default navbar-btn btn-xs' %>
-  <% end %>
-
-
-
-
 <% @posts.each do |post| %>
   <div class='well'>
     <strong><%= link_to post.title, post_path(post) %></strong><br>

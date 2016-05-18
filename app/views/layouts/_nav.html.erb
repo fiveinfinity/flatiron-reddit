@@ -15,6 +15,21 @@
       <% end %>
     </ul>
 
+    <ul class="nav navbar-nav right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"><span class="glyphicon glyphicon-sort-by-attributes"></span></a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-header">Sort Posts</li>
+          <li><%= link_to "By Newest", 'sort_newest', method: 'post' %></li>
+          <li><%= link_to "By Oldest", 'sort_oldest', method: 'post' %></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">Sort Comments</li>
+          <li><%= link_to "By Most", 'sort_most', method: 'post' %></li>
+          <li><%= link_to "By Least", 'sort_least', method: 'post' %></li>
+        </ul>
+      </li>
+    </ul>
+
     <div class="navbar-form pull-right">
       <div class="form-group">
         <%= form_tag search_path, method: "post" do %>

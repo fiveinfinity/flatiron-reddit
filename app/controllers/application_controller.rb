@@ -9,4 +9,28 @@ class ApplicationController < ActionController::Base
     @categories = unique_category
     render :index
   end
+
+  def sort_newest
+    @posts = Post.all.order('created_at DESC')
+    @categories = unique_category
+    render :index
+  end
+
+  def sort_oldest
+    @posts = Post.all.order('created_at ASC')
+    @categories = unique_category
+    render :index
+  end
+
+  def sort_most
+    @posts = Post.all.sort {|a,b| b.comments.count <=> a.comments.count}
+    @categories = unique_category
+    render 'posts/index'
+  end
+
+  def sort_least
+    @posts = Post.all.sort {|a,b| a.comments.count <=> b.comments.count}
+    @categories = unique_category
+    render 'posts/index'
+  end
 end

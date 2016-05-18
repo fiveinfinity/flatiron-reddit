@@ -46,19 +46,6 @@ class PostsController < ApplicationController
     redirect_to user_profile_path
   end
 
-  def sort_newest
-    @posts = Post.all.order('created_at DESC')
-    @categories = unique_category
-    render 'index'
-  end
-
-  def sort_oldest
-    @posts = Post.all.order('created_at ASC')
-    @categories = unique_category
-    render 'index'
-  end
-
-
   private
   def post_params
     params.require(:post).permit(:title, :content, :author_id, :category_ids, categories_attributes: [:title])
