@@ -1,9 +1,11 @@
 class PostsController < ApplicationController
+  include PostsHelper
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :edit]
 
   def index
     @posts = Post.all
+    @categories = unique_category
   end
 
   def new
@@ -41,17 +43,20 @@ class PostsController < ApplicationController
 
   def sort_newest
     @posts = Post.all.order('created_at DESC')
+    @categories = unique_category
     render 'index'
   end
 
   def sort_oldest
     @posts = Post.all.order('created_at ASC')
+    @categories = unique_category
     render 'index'
   end
 
   def search
     @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
-    render "index"
+    @categories = unique_category
+    render 'index'
   end
 
   private

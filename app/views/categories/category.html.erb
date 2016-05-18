@@ -1,7 +1,12 @@
-<%= @category.title %> Category<br><br>
-<% @category.posts.each do |post| %>
-  <%= link_to post.title, post_path(post) %><br>
-  <%= author_of_post_email(post) %><br>
-  <%= post.content %><br><br>
-  <%= post.comments.count %> Comments<br><br>
-<% end %>
+<strong><%= @category.title %> Category</strong><br><br>
+
+
+  <% @category.posts.each do |post| %>
+  <div class='well'>
+    <strong><%= link_to post.title, post_path(post) %></strong><br>
+    <%= post.content %><br>
+    <%= post.comments.count %> Comments  |
+    <%= author_of_post_email(post) %>  |
+    <%= post.created_at.strftime("%A, %b %d") %>
+    </div>
+  <% end %>

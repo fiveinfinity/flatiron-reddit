@@ -3,18 +3,20 @@
   <%= link_to 'DELETE POST', post_path(@post), method: 'delete' %><br>
 <% end %><br>
 
-  TITLE: <%= link_to @post.title, post_path(@post) %><br>
-  AUTHOR: <%= author_of_post_email(@post) %><br>
-            <% @post.categories.each do |category| %>
-              <% if category.title != "" %>
-                CATEGORY: <%= link_to category.title, category_path(category) %><br>
-              <% end %>
-            <% end %>
-  CONTENT: <%= @post.content %><br>
-COMMENTS: <% @post.comments.map do |comment| %>
-  <%= comment.content %><br>
-<% end %>
+<div class='well'>
+  <strong><%= link_to @post.title, post_path(@post) %></strong><br>
+  <%= @post.content %><br>
+  <% @post.categories.each do |category| %>
+    <% if category.title != "" %>
+      <%= link_to category.title, category_path(category) %>  |
+    <% end %>
+  <% end %>
+  <%= author_of_post_email(@post) %><br><br>
 
+  COMMENTS: <br> <% @post.comments.map do |comment| %>
+              <%= comment.content %><br>
+            <% end %>
+</div>
 
 <% if current_user %>
   <%= form_for @comment, url: user_comments_path(params[:id]) do |f| %>

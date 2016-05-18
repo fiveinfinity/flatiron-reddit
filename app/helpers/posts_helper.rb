@@ -10,4 +10,18 @@ module PostsHelper
       user.id
     end
   end
+
+  def unique_category
+    category_arr = []
+
+    Post.all.each do |post|
+      post.categories.each do |category|
+        if category != ""
+          category_arr << category
+        end
+      end
+    end
+
+    category_arr.uniq
+  end
 end

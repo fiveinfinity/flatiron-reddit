@@ -1,15 +1,15 @@
 class CommentsController < ApplicationController
+  include PostsHelper
   before_action :set_comment, only: [:destroy]
 
   def index
     @comments = Comment.where(user_id: params[:user_id])
-    @post = Post.find_by(author_id: params[:id])
   end
 
   def create
     @comment = Comment.create!(comment_params)
     flash[:alert] = "New comment created successfully."
-    redirect_to root_path
+    redirect_to :back
   end
 
   def edit
@@ -32,11 +32,13 @@ class CommentsController < ApplicationController
 
   def sort_most
     @posts = Post.all.sort {|a,b| b.comments.count <=> a.comments.count}
+    @categories = unique_category
     render 'posts/index'
   end
 
   def sort_least
     @posts = Post.all.sort {|a,b| a.comments.count <=> b.comments.count}
+    @categories = unique_category
     render 'posts/index'
   end
 

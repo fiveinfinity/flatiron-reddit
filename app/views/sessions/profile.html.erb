@@ -1,17 +1,23 @@
-<%= @user.email %>'s Profile<br>
-<%= link_to 'New Post', new_post_path %><br>
-<%= link_to 'Update/Delete Comments', user_comments_path(@user.id) %><br><br>
+<strong><%= @user.email %>'s Profile</strong><br>
 
 <% @posts.each do |post| %>
-  TITLE: <%= link_to post.title, post_path(post) %><br>
+<div class='well'>
+  <strong><%= link_to post.title, post_path(post) %></strong><br>
+  <%= post.content %><br>
+
   <% post.categories.each do |category| %>
     <% if category.title != "" %>
-      CATEGORY: <%= link_to category.title, category_path(category) %><br>
+      <%= link_to category.title, category_path(category) %><br>
     <% end %>
   <% end %>
-  CONTENT: <%= post.content %><br>
+
   <% post.comments.each do |comment| %>
-    COMMENT: <%= comment.content %> |
+    COMMENTS:<br> <%= comment.content %> |
     <%= comment.user.email %>
   <% end %><br><br>
+</div>
 <% end %>
+
+
+<%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+<%= link_to 'Update/Delete Comments', user_comments_path(@user.id), class: 'btn btn-primary' %><br><br>

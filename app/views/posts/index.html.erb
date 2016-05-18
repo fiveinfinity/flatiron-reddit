@@ -1,40 +1,37 @@
-<%= form_tag 'sort_newest', method: 'post' do %>
-  <%= submit_tag 'Sort posts by newest' %>
-<% end %>
-<%= form_tag 'sort_oldest', method: 'post' do %>
-  <%= submit_tag 'Sort posts by oldest' %>
-<% end %>
-<%= form_tag 'sort_most', method: 'post' do %>
-  <%= submit_tag 'Sort by most comments' %>
-<% end %>
-<%= form_tag 'sort_least', method: 'post' do %>
-  <%= submit_tag 'Sort by least comments' %>
-<% end %>
+<ul class="nav nav-tabs nav-justified">
+  <% @categories.each do |category| %>
+    <li role='presentation'><%= link_to category.title, category_path(category.id) %></li>
+  <% end %><br><br>
+</ul>
 
-<%= form_tag 'search', method: 'post' do %>
-  <%= text_field_tag 'search' %>
-  <%= submit_tag 'Search Posts' %>
-<% end %>
-
-
-
-<% @posts.each do |post| %>
-  <% post.categories.each do |category| %>
-    <%= link_to category.title, category_path(category.id) %>
+  <%= form_tag 'sort_newest', method: 'post' do %>
+    <%= submit_tag 'Newest Posts', class: 'btn btn-default navbar-btn btn-xs' %>
   <% end %>
-<% end %><br><br>
-
-
+  <%= form_tag 'sort_oldest', method: 'post' do %>
+    <%= submit_tag 'Oldest Posts', class: 'btn btn-default navbar-btn btn-xs' %>
+  <% end %>
+  <%= form_tag 'sort_most', method: 'post' do %>
+    <%= submit_tag 'Most Comments', class: 'btn btn-default navbar-btn btn-xs' %>
+  <% end %>
+  <%= form_tag 'sort_least', method: 'post' do %>
+    <%= submit_tag 'Least Comments', class: 'btn btn-default navbar-btn btn-xs' %>
+  <% end %>
+  <%= form_tag controller: "posts", action: "search", method: "POST" do %>
+    <%= text_field_tag 'search' %>
+  <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm' %>
+<% end %>
 
 <% @posts.each do |post| %>
-  <%= link_to post.title, post_path(post) %><br>
-  <%= author_of_post_email(post) %><br>
-  <% post.categories.each do |category| %>
-    <% if category.title != "" %>
-      <%= link_to category.title, category_path(category) %><br>
+  <div class='well'>
+    <strong><%= link_to post.title, post_path(post) %></strong><br>
+    <%= post.content %><br>
+    <% post.categories.each do |category| %>
+      <% if category.title != "" %>
+        <%= link_to category.title, category_path(category) %>  |
+      <% end %>
     <% end %>
-  <% end %>
-  <%= post.content %><br>
-  <%= post.comments.count %> Comments<br><br>
-  <%= post.created_at %>
+    <%= post.comments.count %> Comments  |
+    <%= author_of_post_email(post) %>  |
+    <%= post.created_at.strftime("%A, %b %d") %>
+  </div>
 <% end %>
