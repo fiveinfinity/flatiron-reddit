@@ -4,6 +4,11 @@ class CommentsController < ApplicationController
 
   def index
     @comments = Comment.where(user_id: params[:user_id])
+
+    @post = [];
+    @comments.each do |comment|
+      @post << Post.find(comment.author_id)
+    end
   end
 
   def create
@@ -13,7 +18,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comments = Comment.where(user_id: current_user.id)
+    @comments = Comment.where(user_id: current_user.id, post_id: params[:post_id])
   end
 
   def update
@@ -44,7 +49,7 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:content, :user_id, :post_id)
+    params.require(:comment).permit(:content, :user_id, :post_id, :author_id)
   end
 
   def set_comment

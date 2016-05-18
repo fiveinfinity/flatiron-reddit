@@ -1,5 +1,20 @@
 
-<% @comments.each do |comment| %>
-  <%= comment.content %><br>
-  <%= link_to 'Edit Comment', edit_user_comment_path(user_id: params[:user_id], id: comment[:id])%>
-<% end %>
+<div class='well'>
+  <% @post.each do |post| %>
+    <strong><%= link_to post.title, post_path(post) %></strong><br>
+  <%= post.content %><br>
+  <% post.categories.each do |category| %>
+    <% if category.title != "" %>
+      <%= link_to category.title, category_path(category) %>  |
+    <% end %>
+  <% end %>
+  <%= author_of_post_email(post) %><br><br>
+
+    <% @comments.each do |comment| %>
+      <% if comment.post_id == post.id %>
+        <%= comment.content %>
+        <%= link_to 'Edit Comment', edit_user_comment_path(user_id: params[:user_id], id: comment[:id], post_id: post.id)%><br><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
