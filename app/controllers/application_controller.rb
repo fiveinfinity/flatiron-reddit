@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # def search
+  #   @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
+  #   @categories = unique_category
+  #   render :index
+  # end
+
   def search
-    @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
+    @posts = Post.search(params[:search])
     @categories = unique_category
     render :index
   end
@@ -23,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sort_most
-    @posts = Post.all.sort {|a,b| b.comments.count <=> a.comments.count}
+    @posts = Post.sort_most
     @categories = unique_category
     render 'posts/index'
   end

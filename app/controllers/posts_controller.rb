@@ -4,13 +4,12 @@ class PostsController < ApplicationController
   before_action :set_user, only: [:new, :edit]
 
   def index
-    # if params[:search]
-    #   @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
-    #   @categories = unique_category
-    # else
-      @posts = Post.all
-      @categories = unique_category
+    @posts = Post.all
 
+    respond_to do |f|
+      f.html { render :index }
+      f.json { render json: @posts }
+    end
   end
 
   def new
@@ -25,7 +24,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @comment = Comment.new
+    render json: @post
   end
 
   def edit
@@ -44,6 +43,17 @@ class PostsController < ApplicationController
     end
     flash[:alert] = "Post & Comments destroyed successfully."
     redirect_to user_profile_path
+  end
+
+  def time
+    @time = {"time": "#{Date.parse(params["time"]).strftime("%A, %b %d")}"}
+    render json: @time
+  end
+
+  def find_author
+    found_author = User.find(params["author"])
+    @author = {"author": "#{found_author["email"]}"}
+    render json: @author
   end
 
   private

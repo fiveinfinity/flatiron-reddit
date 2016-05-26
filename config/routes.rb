@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'sort_most', to: 'comments#sort_most'
   post 'sort_least', to: 'comments#sort_least'
   post 'search', to: 'posts#search'
+  post '/posts/time', to: 'posts#time'
+  post '/posts/find_author', to: 'posts#find_author'
 
   get 'category/:id', to: 'categories#category', as: 'category'
   get '/users/:id/profile', to: 'sessions#profile', as: 'user_profile'

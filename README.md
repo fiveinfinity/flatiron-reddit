@@ -25,10 +25,28 @@ DONE 10. comments
 
 DONE 11. user comments not working properly
 
-12. Messages
+DONE 12. Messages
 
 DONE 13. Updating comment creates a new comment.
 
 DONE 14. Delete a comment.
 
 DONE 15. Edit/Delete a post.
+
+
+JQUERY REFACTOR::
+Render index, show pages with jquery using serializer (rendering posts)
+Refactor Sort and Search for jquery, and refactor sort to a JS method
+
+Work on Unique Categories, from Faker, but so a user can't create a category that already exists.
+
+Wishlist:
+Change routes to category/name vs category/id, and users/profile/username (if user creates a username), otherwise an email.
+
+
+AJAX, JSON RENDER:
+
+POST/SHOW, CREATE A COMMENT, AJAX on same page.
+INDEX/SEARCH refresh page with response, no reload.
+Create POST model, call author, unique, time methods
+*CATEGORY/SHOW

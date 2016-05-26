@@ -1,20 +1,2 @@
-<ul class="nav nav-tabs nav-justified">
-  <% @categories.each do |category| %>
-    <li role='presentation'><%= link_to category.title, category_path(category.id) %></li>
-  <% end %><br><br>
-</ul>
-
-<% @posts.each do |post| %>
-  <div class='well'>
-    <strong><%= link_to post.title, post_path(post) %></strong><br>
-    <%= post.content %><br>
-    <% post.categories.each do |category| %>
-      <% if category.title != "" %>
-        <%= link_to category.title, category_path(category) %>  |
-      <% end %>
-    <% end %>
-    <%= post.comments.count %> Comments  |
-    <%= author_of_post_email(post) %>  |
-    <%= post.created_at.strftime("%A, %b %d") %>
-  </div>
-<% end %>
+<ul class="nav nav-tabs nav-justified" id="index_categories"></ul>
+<div class='posts'></div>
