@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/posts">Flatiron Reddit</a>
+      <a class="navbar-brand" href="/">Flatiron Reddit</a>
     </div>
 
     <ul class='nav navbar-nav navbar-inverse'>
@@ -32,9 +32,9 @@
 
     <div class="navbar-form pull-right">
       <div class="form-group">
-        <%= form_tag search_path, method: "post" do %>
+        <%= form_tag search_path, method: "get" do %>
           <%= text_field_tag "search" %>
-        <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm' %>
+        <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm', id: 'search_button' %>
         <% end %>
       </div>
     </div>

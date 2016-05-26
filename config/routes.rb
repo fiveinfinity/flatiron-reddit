@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   post 'sort_oldest', to: 'posts#sort_oldest'
   post 'sort_most', to: 'comments#sort_most'
   post 'sort_least', to: 'comments#sort_least'
-  post 'search', to: 'posts#search'
   post '/posts/time', to: 'posts#time'
   post '/posts/find_author', to: 'posts#find_author'
 
+  get 'search', to: 'posts#search'
   get 'category/:id', to: 'categories#category', as: 'category'
   get '/users/:id/profile', to: 'sessions#profile', as: 'user_profile'
   get '/auth/facebook/callback' => 'sessions#create'

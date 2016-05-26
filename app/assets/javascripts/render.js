@@ -36,9 +36,6 @@ Array.prototype.getUnique = function(){
    return a;
 }
 
-var selectors = [];
-var id = undefined;
-
 function renderCategories() {
   $.get('/posts.json', function(response) {
     var categoryLinks = '';
@@ -55,64 +52,53 @@ function renderCategories() {
   });
 }
 
-function renderPosts() {
+function allPosts() {
   $.get('/posts.json', function(response) {
-    var postBlocks = [];
-    var posts = response["posts"];
-
-    posts.forEach(function(post) {
-      post = new Post(post["id"], post["content"], post["created_at"], post["updated_at"], post.title, post["author_id"], post["categories"], post["comments"]);
-
-      post.parseTime(post.createdAt, post.id);
-      post.findAuthor(post.authorId, post.id);
-
-      postBlocks += ('<div class="well">')
-      postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'">' + post.title + '</a></strong><br>');
-
-      var titleHash = {};
-      titleHash['data-postid="' + post.id + '"'] = post.id;
-      selectors.push(titleHash);
-
-      postBlocks += (post.content + '<br>');
-
-      var categories = post.categories;
-      categories.forEach(function(category) {
-        if(category["title"] != '') {
-          postBlocks += ('<a href="/category/' + category["id"] + '">' + category["title"] + '</a>' + ' ');
-        }
-      });
-      postBlocks += (' | ');
-      postBlocks += (post.comments.length + ' Comments' + ' | ');
-      postBlocks += ('<b id="authorid-' + post.id + '"></b>'+ ' | ');
-      postBlocks += ('<b id="timeid-' + post.id + '"></b>');
-      postBlocks += ('</div>')
-    });
-    $(".posts").html(postBlocks);
-  }).done(function() {
-    attachListeners();
+    $(".posts").html(renderPosts(response));
   });
 }
 
-function attachListeners() {
-  for(var key in selectors) {
-    var selector = key;
-    var id = parseInt(selector[key]);
-
-    $(selector).click(function() {
-
-      showPost(id);
+function search() {
+  $("#search_button").click(function(event) {
+    var q = $(this).serialize();
+    var search = $.get('/search.json', q);
+    search.done(function(response) {
+      $(".posts").html(renderPosts(response));
     });
-  }
+  });
 }
 
-function showPost(id) {
-  // $.get('/posts/' + id, function(response) {
-  //   alert('inside posts!');
-  // });
+function renderPosts(response) {
+  var postBlocks = [];
+  var posts = response["posts"];
+  posts.forEach(function(post) {
+    var post = new Post(post["id"], post["content"], post["created_at"], post["updated_at"], post.title, post["author_id"], post["categories"], post["comments"]);
+
+    post.parseTime(post.createdAt, post.id);
+    post.findAuthor(post.authorId, post.id);
+
+    postBlocks += ('<div class="well">')
+    postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'">' + post.title + '</a></strong><br>');
+
+    postBlocks += (post.content + '<br>');
+
+    var categories = post.categories;
+    categories.forEach(function(category) {
+      if(category["title"] != '') {
+        postBlocks += ('<a href="/category/' + category["id"] + '">' + category["title"] + '</a>' + ' ');
+      }
+    });
+    postBlocks += (' | ');
+    postBlocks += (post.comments.length + ' Comments' + ' | ');
+    postBlocks += ('<b id="authorid-' + post.id + '"></b>'+ ' | ');
+    postBlocks += ('<b id="timeid-' + post.id + '"></b>');
+    postBlocks += ('</div>')
+  });
+  return postBlocks;
 }
 
 $(document).ready(function() {
   renderCategories();
-  renderPosts();
-  showPost();
+  allPosts();
+  search();
 });

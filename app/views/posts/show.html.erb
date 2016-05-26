@@ -1,1 +1,30 @@
-<div id='post'></div>
+<% if user_signed_in? && current_user.id == @post.author_id %>
+  <%= link_to 'EDIT POST', edit_post_path(@post) %><br>
+  <%= link_to 'DELETE POST', post_path(@post), method: 'delete' %><br>
+<% end %><br>
+
+
+<div class='well'>
+  <strong><%= link_to @post.title, post_path(@post) %></strong><br>
+  <%= @post.content %><br>
+  <% @post.categories.each do |category| %>
+    <% if category.title != "" %>
+      <%= link_to category.title, category_path(category) %>  |
+    <% end %>
+  <% end %>
+  <%= author_of_post_email(@post) %><br><br>
+
+  COMMENTS: <br> <% @post.comments.map do |comment| %>
+              <%= comment.content %><br>
+            <% end %>
+</div>
+
+<% if current_user %>
+  <%= form_for @comment, url: user_comments_path(params[:id]) do |f| %>
+    <%= f.text_field :content%>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.hidden_field :author_id, value: params[:id] %>
+    <%= f.submit %>
+  <% end %>
+<% end %>

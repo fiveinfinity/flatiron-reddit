@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    render json: @post
+    @comment = Comment.new
   end
 
   def edit

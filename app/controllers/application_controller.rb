@@ -4,16 +4,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # def search
-  #   @posts = Post.all.where("content LIKE ?", "%#{params[:search]}%")
-  #   @categories = unique_category
-  #   render :index
-  # end
-
   def search
     @posts = Post.search(params[:search])
-    @categories = unique_category
-    render :index
+    render json: @posts
   end
 
   def sort_newest

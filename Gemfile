@@ -32,6 +32,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # adds serializer to models. v0.8.x required (as of 5/25/2016) for correct JSON root.
 gem 'active_model_serializers', '~> 0.8.0'
 
+gem 'jquery-turbolinks'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
