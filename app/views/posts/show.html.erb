@@ -14,17 +14,33 @@
   <% end %>
   <%= author_of_post_email(@post) %><br><br>
 
-  COMMENTS: <br> <% @post.comments.map do |comment| %>
-              <%= comment.content %><br>
-            <% end %>
+  COMMENTS: <br> <% @post.comments.each do |comment| %>
+                    <b id='comment'><%= comment.content %></b><br>
+                  <% end %>
 </div>
 
 <% if current_user %>
   <%= form_for @comment, url: user_comments_path(params[:id]) do |f| %>
     <%= f.text_field :content%>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :post_id, value: @post.id %>
-    <%= f.hidden_field :author_id, value: params[:id] %>
+    <%= f.hidden_field :user_id, value: current_user.id, id: :user_id %>
+    <%= f.hidden_field :post_id, value: @post.id, id: :post_id %>
+    <%= f.hidden_field :author_id, value: params[:id], id: :author_id %>
     <%= f.submit %>
   <% end %>
 <% end %>
+
+
+<!-- DOESN'T APPEND CORRECTLY, BUT WORKS -->
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('form').submit(function(event) {
+      event.preventDefault();
+      var values = $(this).serialize();
+      var posting = $.post('/users/' + <%= current_user.id %> + '/comments', values);
+      posting.done(function(data){
+        var comment = data["comment"];
+        $("#comment").append(comment["content"]);
+      });
+    });
+  });
+</script>

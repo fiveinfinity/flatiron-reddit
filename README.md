@@ -46,7 +46,7 @@ Change routes to category/name vs category/id, and users/profile/username (if us
 
 AJAX, JSON RENDER:
 
-POST/SHOW, CREATE A COMMENT, AJAX on same page.
-INDEX/SEARCH refresh page with response, no reload.
-Create POST model, call author, unique, time methods
-*CATEGORY/SHOW
+      POST/SHOW, CREATE A COMMENT, AJAX on same page.
+      INDEX/SEARCH refresh page with response, no reload.
+DONE Create POST model, call author, unique, time methods
+      *CATEGORY/SHOW

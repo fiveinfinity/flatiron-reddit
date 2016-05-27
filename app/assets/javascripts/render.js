@@ -62,8 +62,8 @@ function search() {
   $("#search_button").click(function(event) {
     var q = $(this).serialize();
     var search = $.get('/search.json', q);
-    search.done(function(response) {
-      $(".posts").html(renderPosts(response));
+    search.success(function(response) {
+      $("#search").html(renderPosts(response));
     });
   });
 }

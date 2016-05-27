@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.create!(comment_params)
     flash[:alert] = "New comment created successfully."
-    redirect_to :back
+    render json: @comment
   end
 
   def edit
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     flash[:alert] = "Comment destroyed successfully."
     redirect_to user_profile_path
   end
-  
+
   private
   def comment_params
     params.require(:comment).permit(:content, :user_id, :post_id, :author_id)
