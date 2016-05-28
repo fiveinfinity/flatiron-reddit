@@ -32,9 +32,9 @@
 
     <div class="navbar-form pull-right">
       <div class="form-group">
-        <%= form_tag search_path, method: "get" do %>
+        <%= form_tag search_path, method: "get", id: 'search_form', remote: true do %>
           <%= text_field_tag "search" %>
-        <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm', id: 'search_button' %>
+        <%= submit_tag 'Search Posts', class: 'btn btn-primary btn-sm' %>
         <% end %>
       </div>
     </div>

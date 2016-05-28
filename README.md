@@ -50,3 +50,5 @@ AJAX, JSON RENDER:
       INDEX/SEARCH refresh page with response, no reload.
 DONE Create POST model, call author, unique, time methods
       *CATEGORY/SHOW
+
+      FIX USERS/:ID/COMMENTS PAGE

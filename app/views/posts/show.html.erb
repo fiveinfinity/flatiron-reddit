@@ -14,9 +14,10 @@
   <% end %>
   <%= author_of_post_email(@post) %><br><br>
 
-  COMMENTS: <br> <% @post.comments.each do |comment| %>
-                    <b id='comment'><%= comment.content %></b><br>
-                  <% end %>
+  COMMENTS: <br>
+  <% @post.comments.each do |comment| %>
+    <b id='comment'><%= comment.content %></b><br>
+  <% end %>
 </div>
 
 <% if current_user %>
@@ -28,7 +29,6 @@
     <%= f.submit %>
   <% end %>
 <% end %>
-
 
 <!-- DOESN'T APPEND CORRECTLY, BUT WORKS -->
 <script type="text/javascript" charset="utf-8">

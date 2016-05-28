@@ -59,11 +59,13 @@ function allPosts() {
 }
 
 function search() {
-  $("#search_button").click(function(event) {
+  $("#search_form").submit(function(event) {
+    event.preventDefault();
+
     var q = $(this).serialize();
     var search = $.get('/search.json', q);
     search.success(function(response) {
-      $("#search").html(renderPosts(response));
+      $(".posts").html(renderPosts(response));
     });
   });
 }
@@ -78,7 +80,7 @@ function renderPosts(response) {
     post.findAuthor(post.authorId, post.id);
 
     postBlocks += ('<div class="well">')
-    postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'">' + post.title + '</a></strong><br>');
+    postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'" data-remote="true">' + post.title + '</a></strong><br>');
 
     postBlocks += (post.content + '<br>');
 
