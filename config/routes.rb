@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'sort_least', to: 'comments#sort_least'
   post '/posts/time', to: 'posts#time'
   post '/posts/find_author', to: 'posts#find_author'
+  post '/comments/find', to: 'comments#find'
 
   get 'search', to: 'posts#search'
   get 'category/:id', to: 'categories#category', as: 'category'

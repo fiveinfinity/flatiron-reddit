@@ -38,7 +38,7 @@ JQUERY REFACTOR::
 Render index, show pages with jquery using serializer (rendering posts)
 Refactor Sort and Search for jquery, and refactor sort to a JS method
 
-Work on Unique Categories, from Faker, but so a user can't create a category that already exists.
+
 
 Wishlist:
 Change routes to category/name vs category/id, and users/profile/username (if user creates a username), otherwise an email.
@@ -46,9 +46,15 @@ Change routes to category/name vs category/id, and users/profile/username (if us
 
 AJAX, JSON RENDER:
 
-      POST/SHOW, CREATE A COMMENT, AJAX on same page.
-      INDEX/SEARCH refresh page with response, no reload.
-DONE Create POST model, call author, unique, time methods
-      *CATEGORY/SHOW
+DONE  POST/SHOW, CREATE A COMMENT, AJAX on same page.
+DONE  INDEX/SEARCH refresh page with response, no reload.
+DONE  Create POST model, call author, unique, time methods
+DONE  *Work on Unique Categories, from Faker, but so a user can't create a category that already exists.
+DONE  *KEEP USER FROM CREATING REPEATED CATEGORY NAMES
+DONE  *FIX USERS/:ID/COMMENTS PAGE
+      Sort
+      Upvotes/Downvotes
 
-      FIX USERS/:ID/COMMENTS PAGE
+
+      BUGS:
+DONE  If post is deleted, category is also deleted.

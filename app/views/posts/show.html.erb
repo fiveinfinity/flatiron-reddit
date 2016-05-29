@@ -15,14 +15,12 @@
   <%= author_of_post_email(@post) %><br><br>
 
   COMMENTS: <br>
-  <% @post.comments.each do |comment| %>
-    <b id='comment'><%= comment.content %></b><br>
-  <% end %>
+  <div id="comment_ajax"></div>
 </div>
 
 <% if current_user %>
-  <%= form_for @comment, url: user_comments_path(params[:id]) do |f| %>
-    <%= f.text_field :content%>
+  <%= form_for @comment, url: user_comments_path(params[:id]), id: 'new_comment', remote: true do |f| %>
+    <%= f.text_field :content, id: :content %>
     <%= f.hidden_field :user_id, value: current_user.id, id: :user_id %>
     <%= f.hidden_field :post_id, value: @post.id, id: :post_id %>
     <%= f.hidden_field :author_id, value: params[:id], id: :author_id %>
@@ -30,17 +28,28 @@
   <% end %>
 <% end %>
 
-<!-- DOESN'T APPEND CORRECTLY, BUT WORKS -->
 <script type="text/javascript" charset="utf-8">
-  $(function() {
-    $('form').submit(function(event) {
-      event.preventDefault();
-      var values = $(this).serialize();
-      var posting = $.post('/users/' + <%= current_user.id %> + '/comments', values);
-      posting.done(function(data){
-        var comment = data["comment"];
-        $("#comment").append(comment["content"]);
-      });
+//RETURNS ALL COMMENTS FOR POST/:ID, APPENDS TO #COMMENT_AJAX
+  $.post('/comments/find', {'id': <%= @post.id %>}).success(function(response) {
+    var comments = response["comments"];
+    comments.forEach(function(comment) {
+      $("#comment_ajax").append(comment["content"] + '<br>');
     });
+  });
+
+  //SUBMITS NEW COMMENT FORM, ADDS TO #COMMENT_AJAX DIV
+  $('form').submit(function(event) {
+    event.preventDefault();
+    var content = $("#content").val();
+    var comment = $(this).serialize();
+    <% if current_user %>
+    $.post('/users/' + <%= current_user.id %> + '/comments', comment).success(function(data) {
+      $("#comment_ajax").append(content + '<br>');
+      $('form').each(function() {
+        this.reset();
+      })
+    });
+    <% end %>
+  return false;
   });
 </script>

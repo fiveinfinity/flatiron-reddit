@@ -1,3 +1,5 @@
+### ALL SORT AND SEARCH METHODS ARE IN ApplicationController
+
 class PostsController < ApplicationController
   include PostsHelper
   before_action :set_post, only: [:show, :edit, :update, :destroy]
@@ -25,8 +27,6 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
-
-    render json: @post
   end
 
   def edit

@@ -80,7 +80,7 @@ function renderPosts(response) {
     post.findAuthor(post.authorId, post.id);
 
     postBlocks += ('<div class="well">')
-    postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'" data-remote="true">' + post.title + '</a></strong><br>');
+    postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'">' + post.title + '</a></strong><br>');
 
     postBlocks += (post.content + '<br>');
 
@@ -88,9 +88,9 @@ function renderPosts(response) {
     categories.forEach(function(category) {
       if(category["title"] != '') {
         postBlocks += ('<a href="/category/' + category["id"] + '">' + category["title"] + '</a>' + ' ');
+        postBlocks += (' | ');
       }
     });
-    postBlocks += (' | ');
     postBlocks += (post.comments.length + ' Comments' + ' | ');
     postBlocks += ('<b id="authorid-' + post.id + '"></b>'+ ' | ');
     postBlocks += ('<b id="timeid-' + post.id + '"></b>');

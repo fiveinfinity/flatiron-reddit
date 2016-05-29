@@ -5,10 +5,11 @@ class CommentsController < ApplicationController
   def index
     @comments = Comment.where(user_id: params[:user_id])
 
-    @post = [];
+    post = []
     @comments.each do |comment|
-      @post << Post.find(comment.author_id)
+      post << Post.find(comment.author_id)
     end
+    @post = post.uniq
   end
 
   def create
@@ -33,6 +34,12 @@ class CommentsController < ApplicationController
     @comment.save
     flash[:alert] = "Comment destroyed successfully."
     redirect_to user_profile_path
+  end
+
+  #finds all comments for a specific post on post#show
+  def find
+    @comments = Comment.where({post_id: params["id"]})
+    render json: @comments
   end
 
   private
