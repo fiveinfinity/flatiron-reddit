@@ -11,25 +11,21 @@ class ApplicationController < ActionController::Base
 
   def sort_newest
     @posts = Post.all.order('created_at DESC')
-    @categories = unique_category
-    render :index
+    render json: @posts
   end
 
   def sort_oldest
     @posts = Post.all.order('created_at ASC')
-    @categories = unique_category
-    render :index
+    render json: @posts
   end
 
   def sort_most
-    @posts = Post.sort_most
-    @categories = unique_category
-    render 'posts/index'
+    @posts = Post.all.sort {|a,b| b.comments.count <=> a.comments.count}
+    render json: @posts
   end
 
   def sort_least
     @posts = Post.all.sort {|a,b| a.comments.count <=> b.comments.count}
-    @categories = unique_category
-    render 'posts/index'
+    render json: @posts
   end
 end

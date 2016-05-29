@@ -52,7 +52,7 @@ DONE  Create POST model, call author, unique, time methods
 DONE  *Work on Unique Categories, from Faker, but so a user can't create a category that already exists.
 DONE  *KEEP USER FROM CREATING REPEATED CATEGORY NAMES
 DONE  *FIX USERS/:ID/COMMENTS PAGE
-      Sort
+DONE  Sort
       Upvotes/Downvotes
 
 

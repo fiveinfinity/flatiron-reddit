@@ -8,10 +8,8 @@ Rails.application.routes.draw do
   end
 
   #######ROUTES FOR SORTING AND SEARCH FEATURES############
-  post 'sort_newest', to: 'posts#sort_newest'
-  post 'sort_oldest', to: 'posts#sort_oldest'
-  post 'sort_most', to: 'comments#sort_most'
-  post 'sort_least', to: 'comments#sort_least'
+
+
   post '/posts/time', to: 'posts#time'
   post '/posts/find_author', to: 'posts#find_author'
   post '/comments/find', to: 'comments#find'
@@ -20,6 +18,11 @@ Rails.application.routes.draw do
   get 'category/:id', to: 'categories#category', as: 'category'
   get '/users/:id/profile', to: 'sessions#profile', as: 'user_profile'
   get '/auth/facebook/callback' => 'sessions#create'
+
+  get 'sort_newest', to: 'posts#sort_newest'
+  get 'sort_oldest', to: 'posts#sort_oldest'
+  get 'sort_most', to: 'posts#sort_most'
+  get 'sort_least', to: 'posts#sort_least'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -16,8 +16,4 @@ class Post < ActiveRecord::Base
   def self.search(params)
     all.where("content LIKE ?", "%#{params}%")
   end
-
-  def self.sort_most
-    all.sort {|a,b| b.comments.count <=> a.comments.count}
-  end
 end

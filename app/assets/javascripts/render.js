@@ -70,6 +70,35 @@ function search() {
   });
 }
 
+function sortListeners() {
+  $("#sort_newest").click(function(event) {
+    event.preventDefault();
+    sort('sort_newest');
+  });
+
+  $("#sort_oldest").click(function(event) {
+    event.preventDefault();
+    sort('sort_oldest');
+  });
+
+  $("#sort_most").click(function(event) {
+    event.preventDefault();
+    sort('sort_most');
+  });
+
+  $("#sort_least").click(function(event) {
+    event.preventDefault();
+    sort('sort_least');
+  });
+
+}
+
+function sort(type) {
+    $.get('/' + type + '').success(function(response) {
+      $(".posts").html(renderPosts(response));
+    });
+}
+
 function renderPosts(response) {
   var postBlocks = [];
   var posts = response["posts"];
@@ -103,4 +132,5 @@ $(document).ready(function() {
   renderCategories();
   allPosts();
   search();
+  sortListeners();
 });
