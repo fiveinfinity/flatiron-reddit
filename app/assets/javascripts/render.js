@@ -1,4 +1,4 @@
-function Post(id, content, createdAt, updatedAt, title, authorId, categories, comments) {
+function Post(id, content, createdAt, updatedAt, title, authorId, categories, comments, vote) {
   this.id = id;
   this.content = content;
   this.createdAt = createdAt;
@@ -7,6 +7,8 @@ function Post(id, content, createdAt, updatedAt, title, authorId, categories, co
   this.authorId = authorId;
   this.categories = categories;
   this.comments = comments;
+  this.vote = vote;
+
   this.parseTime = function(rubyTime, id) {
     var time = {"time": rubyTime};
 
@@ -103,14 +105,12 @@ function renderPosts(response) {
   var postBlocks = [];
   var posts = response["posts"];
   posts.forEach(function(post) {
-    var post = new Post(post["id"], post["content"], post["created_at"], post["updated_at"], post.title, post["author_id"], post["categories"], post["comments"]);
-
+    var post = new Post(post["id"], post["content"], post["created_at"], post["updated_at"], post["title"], post["author_id"], post["categories"], post["comments"], post["vote"]);
     post.parseTime(post.createdAt, post.id);
     post.findAuthor(post.authorId, post.id);
 
-    postBlocks += ('<div class="well">')
+    postBlocks += ('<div class="well" data-id="' + post.id + '"><table><tr><td class="content_td">');
     postBlocks += ('<strong><a data-postid="' + post.id + '"  href="/posts/' + post.id +'">' + post.title + '</a></strong><br>');
-
     postBlocks += (post.content + '<br>');
 
     var categories = post.categories;
@@ -123,9 +123,34 @@ function renderPosts(response) {
     postBlocks += (post.comments.length + ' Comments' + ' | ');
     postBlocks += ('<b id="authorid-' + post.id + '"></b>'+ ' | ');
     postBlocks += ('<b id="timeid-' + post.id + '"></b>');
-    postBlocks += ('</div>')
+    postBlocks += ('</td>');
+
+    postBlocks += ('<td class="vote_td"><img src="assets/pabstcan.jpg" class="upvote" id="' + post.id + '" onClick="getVoteId(\'upvote\', this.id)">');
+    postBlocks += ('<b class="post_vote" data-id="' + post.id + '">' + post.vote + '</b>');
+    postBlocks += ('<img src="assets/downpabstcan.jpg" class="downvote" id="' + post.id + '" onClick="getVoteId(\'downvote\', this.id)">')
+    postBlocks += ('</td></tr></table></div>');
   });
   return postBlocks;
+}
+
+function getVoteId(clicked_class, clicked_id) {
+  if(clicked_class === 'upvote') {
+    upVote(clicked_id);
+  } else {
+    downVote(clicked_id);
+  }
+}
+
+function upVote(postId) {
+  $.get('/upvote/' + postId).success(function(response) {
+    $('b[data-id="' + postId + '"]').text(response["post"]["vote"]);
+  });
+}
+
+function downVote(postId) {
+  $.get('/downvote/' + postId).success(function(response) {
+    $('b[data-id="' + postId + '"]').text(response["post"]["vote"]);
+  });
 }
 
 $(document).ready(function() {

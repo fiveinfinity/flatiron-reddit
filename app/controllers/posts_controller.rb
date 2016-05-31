@@ -56,6 +56,20 @@ class PostsController < ApplicationController
     render json: @author
   end
 
+  def upvote
+    @post = Post.find(params["id"])
+    @post.vote += 1
+    @post.save
+    render json: @post
+  end
+
+  def downvote
+    @post = Post.find(params["id"])
+    @post.vote -= 1
+    @post.save
+    render json: @post
+  end
+
   private
   def post_params
     params.require(:post).permit(:title, :content, :author_id, :category_ids, categories_attributes: [:title])

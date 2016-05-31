@@ -17,3 +17,27 @@
  @import "bootstrap";
  @import "bootstrap-social.css";
  @import "font-awesome";
+
+table {
+  height: 100%;
+  width: 100%;
+}
+
+.content_td {
+  width: 90%;
+}
+
+.vote_td {
+  float: right;
+}
+
+img {
+height: 40px;
+}
+
+b.post_vote {
+ height: 40px;
+ width: 40px;
+ text-align:center;
+ font-size: 1.5em;
+}

@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   get 'sort_most', to: 'posts#sort_most'
   get 'sort_least', to: 'posts#sort_least'
 
+  get 'upvote/:id', to: 'posts#upvote'
+  get 'downvote/:id', to: 'posts#downvote'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
