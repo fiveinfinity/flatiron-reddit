@@ -1,16 +1,15 @@
-<div class='well'>
+<div class='well form-group newpost'>
   <%= form_for @post do |f| %>
     <%= f.label :title %><br>
-    <%= f.text_field :title %><br>
+    <%= f.text_field :title, class: 'form-control' %><br>
     <%= f.label :content %><br>
-    <%= f.text_area :content %><br>
-    <%= f.label :category %><br>
+    <%= f.text_area :content, class: 'form-control' %><br>
     <%= f.collection_select :category_ids, Category.all, :id, :title, prompt: "Choose a Category" %><br><br>
     Or create your own category: <br>
     <%= f.fields_for :categories, @post.categories.build do |field| %>
-      <%= field.text_field :title %><br><br>
+      <%= field.text_field :title, class: 'form-control' %><br>
     <% end %>
     <%= f.hidden_field :author_id, value: @user.id %>
-    <%= f.submit %>
+    <%= f.submit 'Submit Post', class: 'btn btn-default' %>
   <% end %>
 </div>

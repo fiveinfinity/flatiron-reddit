@@ -18,9 +18,27 @@
  @import "bootstrap-social.css";
  @import "font-awesome";
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.wellwidth {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
 table {
   height: 100%;
   width: 100%;
+}
+
+.newpost {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .content_td {

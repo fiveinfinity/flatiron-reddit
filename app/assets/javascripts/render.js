@@ -1,41 +1,7 @@
-function Post(id, content, createdAt, updatedAt, title, authorId, categories, comments, vote) {
-  this.id = id;
-  this.content = content;
-  this.createdAt = createdAt;
-  this.updatedAt = updatedAt;
-  this.title = title;
-  this.authorId = authorId;
-  this.categories = categories;
-  this.comments = comments;
-  this.vote = vote;
-
-  this.parseTime = function(rubyTime, id) {
-    var time = {"time": rubyTime};
-
-    $.post('/posts/time', time).success(function(response) {
-      $("#timeid-" + id).text(response["time"]);
-    });
-  }
-
-  this.findAuthor = function(author_id, id) {
-    var author = {"author": author_id};
-
-    $.post('/posts/find_author', author).success(function(response) {
-      $("#authorid-" + id).text(response["author"]);
-    })
-  }
-}
-
-Array.prototype.getUnique = function(){
-   var u = {}, a = [];
-   for(var i = 0; i < this.length; ++i){
-      if(u.hasOwnProperty(this[i])) {
-         continue;
-      }
-      a.push(this[i]);
-      u[this[i]] = 1;
-   }
-   return a;
+function allPosts() {
+  $.get('/posts.json', function(response) {
+    $(".posts").html(renderPosts(response));
+  });
 }
 
 function renderCategories() {
@@ -52,53 +18,6 @@ function renderCategories() {
     });
     $("#index_categories").html(categoryLinks);
   });
-}
-
-function allPosts() {
-  $.get('/posts.json', function(response) {
-    $(".posts").html(renderPosts(response));
-  });
-}
-
-function search() {
-  $("#search_form").submit(function(event) {
-    event.preventDefault();
-
-    var q = $(this).serialize();
-    var search = $.get('/search.json', q);
-    search.success(function(response) {
-      $(".posts").html(renderPosts(response));
-    });
-  });
-}
-
-function sortListeners() {
-  $("#sort_newest").click(function(event) {
-    event.preventDefault();
-    sort('sort_newest');
-  });
-
-  $("#sort_oldest").click(function(event) {
-    event.preventDefault();
-    sort('sort_oldest');
-  });
-
-  $("#sort_most").click(function(event) {
-    event.preventDefault();
-    sort('sort_most');
-  });
-
-  $("#sort_least").click(function(event) {
-    event.preventDefault();
-    sort('sort_least');
-  });
-
-}
-
-function sort(type) {
-    $.get('/' + type + '').success(function(response) {
-      $(".posts").html(renderPosts(response));
-    });
 }
 
 function renderPosts(response) {
@@ -132,30 +51,3 @@ function renderPosts(response) {
   });
   return postBlocks;
 }
-
-function getVoteId(clicked_class, clicked_id) {
-  if(clicked_class === 'upvote') {
-    upVote(clicked_id);
-  } else {
-    downVote(clicked_id);
-  }
-}
-
-function upVote(postId) {
-  $.get('/upvote/' + postId).success(function(response) {
-    $('b[data-id="' + postId + '"]').text(response["post"]["vote"]);
-  });
-}
-
-function downVote(postId) {
-  $.get('/downvote/' + postId).success(function(response) {
-    $('b[data-id="' + postId + '"]').text(response["post"]["vote"]);
-  });
-}
-
-$(document).ready(function() {
-  renderCategories();
-  allPosts();
-  search();
-  sortListeners();
-});
