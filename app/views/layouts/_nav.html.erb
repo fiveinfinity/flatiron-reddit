@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand logo" href="/">Hipster Reddit</a>
+      <a class="navbar-brand logo" href="/" onclick="window.location.reload()">Hipster Reddit</a>
     </div>
 
     <ul class='nav navbar-nav navbar-inverse'>
@@ -17,7 +17,8 @@
 
     <ul class="nav navbar-nav right">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"><span class="glyphicon glyphicon-sort-by-attributes"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"><span class="glyphicon glyphicon-sort-by-attributes"></span>
+</a>
         <ul class="dropdown-menu">
           <li class="dropdown-header">Sort Posts</li>
           <li><%= link_to "By Newest", 'sort_newest', method: 'get', id: 'sort_newest', remote: true %></li>
